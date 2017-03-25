@@ -1,12 +1,19 @@
 package com.afshin.json.entities;
 
+import com.afshin.json.helpers.Logger;
 import org.json.JSONObject;
+
+import java.util.Scanner;
 
 public class User {
 
     private String name = null;
     private String family = null;
+    private String phoneNumber = null;
     private int age;
+
+
+    Scanner input = new Scanner(System.in);
 
     public String getName() {
         return name;
@@ -24,6 +31,14 @@ public class User {
         this.family = family;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public int getAge() {
         return age;
     }
@@ -36,6 +51,7 @@ public class User {
         return new JSONObject("{" +
                 "\"name\":" + getName() + "," +
                 "\"family\":" + getFamily() + "," +
+                "\"family\":" + getPhoneNumber() + "," +
                 "\"age\":" + getAge() +
                 "}");
     }
@@ -45,7 +61,40 @@ public class User {
         return "{" +
                 "\"name\":" + "\"" + getName() + "\"" + "," +
                 "\"family\":" + "\"" + getFamily() + "\"" + "," +
+                "\"family\":" + "\"" + getPhoneNumber() + "\"" + "," +
                 "\"age\":" + getAge() +
                 "}";
     }
+
+    public void userSetInfo() {
+        Logger.println("نام را وارد کنید");
+        setName(input.nextLine());
+        Logger.println("نام خانوادگی را وارد کنید");
+        setFamily(input.nextLine());
+        Logger.println("شماره تلفن را وارد کنید");
+        setPhoneNumber(input.nextLine());
+        Logger.println("سن را وارد کنید");
+        try{
+            setAge(input.nextInt());
+        }catch (Exception e){
+            Logger.println("سن باید به صورت عدد وارد شود لطفا درست وارد کنید");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            Logger.println("سن را دوباره وارد کنید");
+            setAge(input.nextInt());
+        }
+    }
+
+    public void userInfoSave() {
+        String usetInfoText = toString();
+        Logger.writeInfo(usetInfoText);
+    }
+
+
+
+
+
 }
