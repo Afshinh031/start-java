@@ -32,13 +32,13 @@ public class Logger {
         }
     }
 
-    public static String readInfo() {
+    public static String readInfo(String fileName) {
 
         String infoLine, infoText = null;
 
         try {
             BufferedReader objFileReader = new BufferedReader
-                    (new InputStreamReader(new FileInputStream(new File("userInfo.json"))));
+                    (new InputStreamReader(new FileInputStream(new File(fileName))));
             StringBuilder sb = new StringBuilder();
             try {
                 infoLine = objFileReader.readLine();
