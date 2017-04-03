@@ -21,6 +21,7 @@ public class Logger {
             try {
                 objWriteInfo.write(byteInfo);
                 objWriteInfo.close();
+                println("اطلاعات با موفقیت ذخیره شد...");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package com.afshin.json.entities;
 
 import com.afshin.json.helpers.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Scanner;
@@ -51,22 +52,22 @@ public class User {
         return new JSONObject("{" +
                 "\"name\":" + getName() + "," +
                 "\"family\":" + getFamily() + "," +
-                "\"family\":" + getPhoneNumber() + "," +
+                "\"phonNumber\":" + getPhoneNumber() + "," +
                 "\"age\":" + getAge() +
                 "}");
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "\"name\":" + "\"" + getName() + "\"" + "," +
-                "\"family\":" + "\"" + getFamily() + "\"" + "," +
-                "\"family\":" + "\"" + getPhoneNumber() + "\"" + "," +
-                "\"age\":" + getAge() +
+        return "{\n" +
+                "  \"name\": \"" + getName() + "\",\n" +
+                "  \"family\": \"" + getFamily() + "\",\n" +
+                "  \"phoneNumber\" : \"" + getPhoneNumber() + "\",\n" +
+                "  \"age\" : \"" + getAge() + "\"\n" +
                 "}";
     }
 
-    public void userSetInfo() {
+    public void setUserInfo() {
         Logger.println("نام را وارد کنید");
         setName(input.nextLine());
         Logger.println("نام خانوادگی را وارد کنید");
@@ -74,9 +75,9 @@ public class User {
         Logger.println("شماره تلفن را وارد کنید");
         setPhoneNumber(input.nextLine());
         Logger.println("سن را وارد کنید");
-        try{
+        try {
             setAge(input.nextInt());
-        }catch (Exception e){
+        } catch (Exception e) {
             Logger.println("سن باید به صورت عدد وارد شود لطفا درست وارد کنید");
             try {
                 Thread.sleep(3000);
@@ -88,13 +89,32 @@ public class User {
         }
     }
 
-    public void userInfoSave() {
-        String usetInfoText = toString();
+    /***********************************write**********************************/
+    public void saveUserInfo() {
+        String usetInfoText = "," + toString();
         Logger.writeInfo(usetInfoText);
     }
 
+    /**********************************read************************************/
+    public void readUserInfo(String name, String family) {
+        String infoText, userName, userFamily, phoneNumber;
+        int age;
+        infoText = "[" + Logger.readInfo("userInfo.json") + "]";
+        JSONArray jsonArray = new JSONArray(infoText);
 
 
-
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonProductObject = jsonArray.getJSONObject(i);
+            if ((jsonProductObject.getString("name").equals(name))
+                    && (jsonProductObject.getString("family").equals(family))) {
+                Logger.println("name =        " + jsonProductObject.getString("name"));
+                Logger.println("family =      " + jsonProductObject.getString("family"));
+                Logger.println("PhoneNumber = " + jsonProductObject.getString("phoneNumber"));
+                Logger.println("Age =         " + jsonProductObject.getString("age"));
+                Logger.println("");
+                Logger.println("");
+            }
+        }
+    }
 
 }
