@@ -22,7 +22,7 @@ public class Main {
         try {
             operation = input.nextByte();
         }catch (Exception e){
-            Logger.println("شماره عملیات را درست وارد کنید به صورت عددی بین 1 یا 2......");
+            Logger.println("شماره عملیات را درست وارد کنید به صورت عددی بین 1 یا 2.....");
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e1) {
@@ -82,7 +82,7 @@ public class Main {
                 return;
 
 
-            
+
             default:
                 Logger.println("شماره عملیات را درست وارد کنید به صورت عددی بین 1 تا 3......");
                 try {
